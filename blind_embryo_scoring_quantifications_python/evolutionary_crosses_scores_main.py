@@ -1,0 +1,28 @@
+import evolutionary_crosses_scores_import_export as imp_exp
+import evolutionary_crosses_scores_data_handling as data_handle
+from bioinfokit import analys, visuz
+
+
+evolutionary_phenotypes_file_directory_and_path = imp_exp.get_file_path()
+evolutionary_phenotypes_directory = evolutionary_phenotypes_file_directory_and_path["directory"]
+evolutionary_phenotypes_filename = evolutionary_phenotypes_file_directory_and_path["filename"]
+embryos_for_exclusion = ["ju1325", "cni_hybrid"]
+evolutionary_phenotype_scores = imp_exp.import_phenotype_scores(evolutionary_phenotypes_directory, evolutionary_phenotypes_filename, embryos_for_exclusion)
+
+embryo_aspect_ratio_binary_scores = data_handle.calculate_aspect_ratio_score(evolutionary_phenotype_scores)
+appended_binary_ratio_scores = data_handle.append_binary_aspect_ratios_to_phenotype_scores(evolutionary_phenotype_scores, embryo_aspect_ratio_binary_scores)
+
+grouped_phenotype_scores = data_handle.calculate_phenotype_scores(appended_binary_ratio_scores)
+grouped_phenotype_sample_sizes = data_handle.calculate_sample_size(appended_binary_ratio_scores)
+adjusted_phenotype_scores = data_handle.calculate_phenotype_adjusted_score(grouped_phenotype_scores, grouped_phenotype_sample_sizes)
+
+adjusted_phenotype_file_name = "unblinded_embryo_scores_25624_adjusted.csv"
+adjusted_phenotype_file_path = f"{evolutionary_phenotypes_directory}/{adjusted_phenotype_file_name}"
+imp_exp.export_adjusted_phenotype_scores(adjusted_phenotype_scores, adjusted_phenotype_file_path)
+
+adjusted_embryo_scores_file_name = "unblinded_embryo_scores_25624_adjusted_no_aspect_ratio.csv"
+adjusted_embryo_scores_file_path = f"{evolutionary_phenotypes_directory}/{adjusted_embryo_scores_file_name}"
+adjusted_embryo_scores = imp_exp.import_adjusted_phenotype_scores(adjusted_embryo_scores_file_path)
+
+adjusted_embryo_scores_new_index = adjusted_embryo_scores.set_index(adjusted_embryo_scores.columns[0])
+visuz.gene_exp.hmap(df=adjusted_embryo_scores_new_index, rowclus=False, colclus=False, dim=(3, 6), tickfont=(6, 4), show = True)
