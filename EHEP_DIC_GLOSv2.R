@@ -10,12 +10,13 @@ get_file_info = function(trailingOnly = TRUE, asValues = TRUE) {
   if (length(data_file_info) < 5){
     stop("Provide the file path to functions,
          data file dir, early emb divsion measurements,
-         one cell phenotypes categorizations, and spindle angle measurements ,
+         one cell phenotypes categorizations, and spindle angle measurements,
          eg. dev/ centriole_data_dir/ centriole_data.ext one_cell_phenotypes.ext spindle_angle_measurements.ext")
   } else {
     return(data_file_info)
   }
 }
+
 
 early_embryogensis_measurement_file_info = get_file_info()
 function_directory = early_embryogensis_measurement_file_info[1]
@@ -50,7 +51,7 @@ eggshell_long = reshape_data(eggshell_lengths, eggshell_measurements)
 data_descriptors = list("embryo_type", "markers_on")
 create_factors(eggshell_long, data_descriptors = data_descriptors)
 
-sample_sizes = calculate_sample_sizes(eggshell_lengths,
+sample_sizes = calculate_sample_sizes_with_markers(eggshell_lengths,
                                       "eggshell_length")
 
 
@@ -95,7 +96,7 @@ cell_dist_long = reshape_data(cell_dist_lengths, cell_dist_measurements)
 data_descriptors = list("embryo_type", "markers_on")
 create_factors(cell_dist_long, data_descriptors = data_descriptors)
 
-sample_sizes = calculate_sample_sizes(cell_dist_lengths,
+sample_sizes = calculate_sample_sizes_with_markers(cell_dist_lengths,
                                       "to_cleavage_length")
 
 
@@ -165,7 +166,7 @@ spindle_angles_long$measurement_length = as.numeric(spindle_angles_long$measurem
 data_descriptors = list("embryo_type", "markers_on")
 create_factors(spindle_angles_long, data_descriptors = data_descriptors)
 
-sample_sizes = calculate_sample_sizes(spindle_angles,
+sample_sizes = calculate_sample_sizes_with_markers(spindle_angles,
                                       "spindle_angle")
 
 
@@ -213,7 +214,7 @@ spindle_lengths_long = reshape_data(spindle_lengths, spindle_measurements)
 data_descriptors = list("embryo_type", "markers_on")
 create_factors(spindle_lengths_long, data_descriptors = data_descriptors)
 
-sample_sizes = calculate_sample_sizes(spindle_lengths,
+sample_sizes = calculate_sample_sizes_with_markers(spindle_lengths,
                                       "spindle_length")
 
 
@@ -269,7 +270,7 @@ cel_ab_p1_median = median(cel_ab_p1_lengths$ab_p_contact_length)
 data_descriptors = list("embryo_type", "markers_on")
 create_factors(ab_p_contact_long, data_descriptors)
 
-sample_sizes = calculate_sample_sizes(ab_p_contact, "ab_p_contact_length")
+sample_sizes = calculate_sample_sizes_with_markers(ab_p_contact, "ab_p_contact_length")
 
 
 ## ---------------------------------------------------------------------------------
@@ -314,7 +315,7 @@ ab_cell_long = reshape_data(ab_cell_dimensions, ab_cell_measurements)
 create_factors(ab_cell_long, ab_cell_descriptors)
 
 ## not the same number of ab as p1 cells
-sample_sizes = calculate_sample_sizes(ab_cell_dimensions, "ab_cell_height")
+sample_sizes = calculate_sample_sizes_with_markers(ab_cell_dimensions, "ab_cell_height")
 
 
 ## ---------------------------------------------------------------------------------
@@ -357,7 +358,7 @@ p1_cell_long = reshape_data(p1_cell_dimensions, p1_cell_measurements)
 ## ---------------------------------------------------------------------------------
 create_factors(p1_cell_long, p1_cell_descriptors[-1])
 
-sample_sizes = calculate_sample_sizes(p1_cell_dimensions, "p1_height")
+sample_sizes = calculate_sample_sizes_with_markers(p1_cell_dimensions, "p1_height")
 
 
 ## ---------------------------------------------------------------------------------
@@ -429,9 +430,9 @@ for (cell_dim_measure in cell_dim_measures){
   create_factors(cell_dim_measure, cell_dim_descriptors)
 }
 
-cell_size_N = calculate_sample_sizes(cell_sizes, "p1_height")
-cell_eccentricity_N = calculate_sample_sizes(cell_eccentricity, "p1_eccentricity")
-cell_dim_ratio_N = calculate_sample_sizes(cell_dim_ratios, "p1_ab_perimeter_ratio")
+cell_size_N = calculate_sample_sizes_with_markers(cell_sizes, "p1_height")
+cell_eccentricity_N = calculate_sample_sizes_with_markers(cell_eccentricity, "p1_eccentricity")
+cell_dim_ratio_N = calculate_sample_sizes_with_markers(cell_dim_ratios, "p1_ab_perimeter_ratio")
 
 
 ## ---------------------------------------------------------------------------------
@@ -556,7 +557,7 @@ p2_stacking_dist_long = reshape_data(p2_stacking_dist, p2_stacking_measurements)
 data_descriptors = list("embryo_type", "markers_on")
 create_factors(p2_stacking_dist_long, data_descriptors)
 
-sample_sizes = calculate_sample_sizes(p2_stacking_dist, "p2_stacking")
+sample_sizes = calculate_sample_sizes_with_markers(p2_stacking_dist, "p2_stacking")
 
 
 ## ---------------------------------------------------------------------------------
@@ -602,7 +603,7 @@ p2_contact_lengths_long = reshape_data(p2_contact_lengths, p2_contact_measuremen
 data_descriptors = list("embryo_type", "markers_on")
 create_factors(p2_contact_lengths_long, data_descriptors)
 
-sample_sizes = calculate_sample_sizes(p2_contact_lengths, "p2_abp_contact_length")
+sample_sizes = calculate_sample_sizes_with_markers(p2_contact_lengths, "p2_abp_contact_length")
 
 
 ## ---------------------------------------------------------------------------------
