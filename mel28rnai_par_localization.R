@@ -77,9 +77,4 @@ ggsave(paste0(early_embryo_measurements_directory,"pn_centration_par_localizatio
        height = 20, units = "cm",
        device = "pdf", dpi = 300)
 
-# think about creating an x range from 0 to 1 with regularly spaced intervals and interpolating all data signal and background to this range
-## graph par signal avg and sd
-
-# calculate grouped signal average and sd based on embryo type
-# visualize signal average and sd on line graph
 
