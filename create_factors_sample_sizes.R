@@ -40,3 +40,21 @@ calculate_sample_sizes = function(subset_embryo_measurements, measurement){
   return(sample_sizes)
 }
 
+calculate_sample_sizes_with_markers = function(subset_embryo_measurements, measurement){
+  sample_sizes = list()
+  species_names = subset_embryo_measurements$embryo_type
+  unique_species_names = unique(species_names)
+  
+  for (species_name in unique_species_names){
+    species_data = filter(subset_embryo_measurements, 
+                          embryo_type == species_name & 
+                            is.na(measurement) == FALSE&
+                            markers_on != "")
+    sample_data_number = nrow(species_data)
+    sample_sizes = append(sample_sizes, sample_data_number)
+  }
+  
+  names(sample_sizes) = unique_species_names 
+  return(sample_sizes)
+}
+
