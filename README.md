@@ -45,6 +45,15 @@ Calculate brood size and viability on a per worm basis
 ### Visualize the daily brood size and viability per species used  
 *scripts: viability_brood_counting.R*
 
+### Calculate protein sequence divergence
+Calculate the protein sequence divergence scores between species and relative to *C. brenneri*  
+Code only written to include species of *Caenorhahbditis*  
+*scripts: protein_sequence_divergence_calculations_python*
+
+### Visualize protein sequence divergence
+Create a heatmap of clustered protein sequence divergence scores relative to *C. brenneri*   
+*scripts: sequence_evolution_heatmap.R*
+
 ### Functions used in multiple analyses  
 *calculate_spindle_angle_ranges.R, create_factors_sample_sizes.R, four_cell_phenotype_frequencies.R, get_functions.R, select_variables_reformat_long.R, two_cell_size_comparisons.R*
 
